@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "RetailMesh",
+  "version": "1.0.0",
+  "identifier": "za.co.retailmesh.desktop",
+  "build": {
+    "frontendDist": "https://retailmesh.co.za"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "RetailMesh",
+        "url": "https://retailmesh.co.za",
+        "width": 1280,
+        "height": 800,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "dangerousRemoteDomainIpcAccess": [
+        {
+          "domain": "retailmesh.co.za",
+          "windows": ["main"],
+          "plugins": ["notification"]
+        }
+      ]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["msi"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ]
+  }
+}
