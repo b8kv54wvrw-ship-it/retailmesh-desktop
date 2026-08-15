@@ -18,19 +18,14 @@
       }
     ],
     "security": {
-      "csp": null,
-      "dangerousRemoteDomainIpcAccess": [
-        {
-          "domain": "retailmesh.co.za",
-          "windows": ["main"],
-          "plugins": ["notification"]
-        }
-      ]
+      "csp": null
     }
   },
   "bundle": {
     "active": true,
-    "targets": ["msi"],
+    "targets": [
+      "msi"
+    ],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
