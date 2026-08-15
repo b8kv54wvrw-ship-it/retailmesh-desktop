@@ -20,6 +20,8 @@ fn main() {
             }
         }))
         .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_process::init())
         // Start minimised with Windows so notifications work from login.
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,
@@ -54,6 +56,19 @@ fn main() {
                     let _ = window.hide();
                 }
             }
+
+            // Self-update: check on launch, install silently, relaunch.
+            let handle = app.handle().clone();
+            tauri::async_runtime::spawn(async move {
+                use tauri_plugin_updater::UpdaterExt;
+                if let Ok(updater) = handle.updater() {
+                    if let Ok(Some(update)) = updater.check().await {
+                        if update.download_and_install(|_, _| {}, || {}).await.is_ok() {
+                            handle.restart();
+                        }
+                    }
+                }
+            });
 
             Ok(())
         })

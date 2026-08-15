@@ -1,13 +1,15 @@
-name: Build Windows installer
+name: Build and release Windows installer
 
 on:
   push:
-    branches: [main]
+    tags: ["v*"]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -27,12 +29,15 @@ jobs:
       - name: Generate icons
         run: npx tauri icon icon.png
 
-      - name: Build MSI
-        run: npm run build
-
-      - name: Upload installer
-        uses: actions/upload-artifact@v4
+      - name: Build and publish release (msi + updater manifest)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
         with:
-          name: RetailMesh-windows-installer
-          path: src-tauri/target/release/bundle/msi/*.msi
-          if-no-files-found: error
+          tagName: ${{ github.ref_name }}
+          releaseName: "RetailMesh ${{ github.ref_name }}"
+          releaseBody: "RetailMesh desktop update"
+          releaseDraft: false
+          prerelease: false
