@@ -1,0 +1,1 @@
+{"remote-app":{"identifier":"remote-app","description":"Allow the RetailMesh web app (loaded remotely) to send native notifications","remote":{"urls":["https://retailmesh.co.za"]},"local":true,"windows":["main"],"permissions":["core:default","notification:default"]}}

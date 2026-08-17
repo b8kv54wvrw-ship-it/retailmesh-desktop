@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "RetailMesh",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "identifier": "za.co.retailmesh.desktop",
   "build": {
     "frontendDist": "https://retailmesh.co.za"
@@ -11,7 +11,7 @@
     "windows": [
       {
         "title": "RetailMesh",
-        "url": "https://retailmesh.co.za",
+        "url": "https://retailmesh.co.za/login",
         "width": 1280,
         "height": 800,
         "resizable": true
